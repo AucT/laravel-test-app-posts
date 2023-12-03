@@ -36,11 +36,15 @@ class PostRepository implements PostRepositoryInterface
     public function update(int $id, array $data): Post
     {
         $post = $this->find($id);
-        $post->translations()->upsert($data, [
-            'post_id' => $data['post_id'],
+
+        DB::beginTransaction();
+        $post->translations()->updateOrCreate([
+            'post_id' => $id,
             'language_id' => $data['language_id'],
-        ]);
+        ], collect($data)->except('tags')->toArray());
         $post->tags()->sync($data['tags']);
+        DB::commit();
+
         return $post;
     }
 
