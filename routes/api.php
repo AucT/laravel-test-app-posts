@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/posts', [PostController::class, 'index']);
+Route::post('/posts', [PostController::class, 'store']);
+Route::get('/posts/{post}', [PostController::class, 'show']);
+Route::put('/posts/{post}', [PostController::class, 'update']);
+Route::delete('/posts/{post}', [PostController::class, 'destroy']);
+
+
+Route::get('/tags', [TagController::class, 'index']);
+Route::post('/tags', [TagController::class, 'store']);
+Route::get('/tags/{tag}', [TagController::class, 'show']);
+Route::put('/tags/{tag}', [TagController::class, 'update']);
+Route::delete('/tags/{tag}', [TagController::class, 'destroy']);
