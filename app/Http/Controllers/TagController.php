@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTagRequest;
 use App\Models\Tag;
 use App\Repositories\TagRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Response;
 
 class TagController extends Controller
 {
