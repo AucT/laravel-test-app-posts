@@ -47,16 +47,17 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StorePostRequest $request, int $id)
+    public function update(StorePostRequest $request, int $id): PostResource
     {
-        $this->postRepository->update($id, $request->validated());
+        return new PostResource($this->postRepository->update($id, $request->validated())->load('translations')->load('tags:id,name'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(int $id): Response
     {
-        //
+        $this->postRepository->delete($id);
+        return response()->noContent();
     }
 }
