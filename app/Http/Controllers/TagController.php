@@ -55,8 +55,9 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id): void
+    public function destroy(int $id): Response
     {
         $this->tagRepository->delete($id);
+        return response()->noContent();
     }
 }
